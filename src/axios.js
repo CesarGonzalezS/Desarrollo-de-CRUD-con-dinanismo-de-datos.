@@ -1,39 +1,28 @@
 import axios from 'axios';
 
-let API_URL = 'http://localhost:8080/api/movies/movies';
+let API_URL = 'http://localhost:8080/api/movies'; // Corregido el URL base de la API
 
-
-const postCategorias = async(genres) =>{
-    try{
-        const response = await fetch('http://localhost:8080/api/movies/genres', {
-       method: 'POST',
-       body: JSON.stringify(usuarios),
-       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-     });
-     
-     const usuarioCreado = await response.json();
-     this.usuarios = [...this.usuarios, usuarioCreado];
-   } catch (error) {
-     console.error(error);
-   }
-    
+const postCategorias = async (genres) => {
+  try {
+    const response = await axios.post(`${API_URL}/genres`, genres); // Usando Axios para hacer la petición POST
+    return response.data; // Devuelve los datos de la respuesta
+  } catch (error) {
+    console.error(error);
+    throw error; // Propaga el error para manejarlo en el componente Vue
+  }
 }
 
-const  postPeliculas = async (movies) => {
-   try {
-     const response = await fetch('http://localhost:8080/api/movies/movies', {
-       method: 'POST',
-       body: JSON.stringify(usuarios),
-       headers: { 'Content-type': 'application/json; charset=UTF-8' },
-     });
-     
-     const usuarioCreado = await response.json();
-     this.usuarios = [...this.usuarios, usuarioCreado];
-   } catch (error) {
-     console.error(error);
-   }
- }
+const postPeliculas = async (movies) => {
+  try {
+    const response = await axios.post(`${API_URL}/movies`, movies); // Usando Axios para hacer la petición POST
+    return response.data; // Devuelve los datos de la respuesta
+  } catch (error) {
+    console.error(error);
+    throw error; // Propaga el error para manejarlo en el componente Vue
+  }
+}
 
 export default {
-   obtenerPersonasPaginadas
+  postCategorias, // Exporta la función postCategorias
+  postPeliculas, // Exporta la función postPeliculas
 };
